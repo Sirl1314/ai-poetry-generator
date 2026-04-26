@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI诗词生成器</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>" type="image/svg+xml">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 左侧会话面板 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📜 诗词创作记录</h2>
+            </div>
+            <hr class="divider">
+            <button class="btn btn-primary btn-full" id="newSessionBtn">✏️ 新建创作</button>
+            <div class="session-section">
+                <h3>历史会话</h3>
+                <div class="session-list" id="sessionList"></div>
+            </div>
+        </aside>
+
+        <!-- 中间生成面板 -->
+        <main class="generator-container">
+            <header class="generator-header">
+                <div class="header-left">
+                    <h1>📜 AI诗词生成器</h1>
+                    <span class="session-name" id="sessionName">当前会话：未选择</span>
+                </div>
+                <div class="theme-switcher">
+                    <button class="btn btn-theme" id="themeBtn" title="切换主题">🎨</button>
+                    <div class="theme-dropdown" id="themeDropdown">
+                        <div class="theme-option" data-theme="light">
+                            <span class="theme-color theme-light"></span>
+                            <span>浅色模式</span>
+                        </div>
+                        <div class="theme-option" data-theme="dark">
+                            <span class="theme-color theme-dark"></span>
+                            <span>深色模式</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 生成配置区 -->
+            <div class="config-panel">
+                <div class="form-group">
+                    <label for="themeInput">创作主题</label>
+                    <input type="text" id="themeInput" placeholder="如：中秋、山水、离别、思乡..." autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>诗词类型</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="poetryType" value="唐诗" checked>
+                            <span class="radio-custom"></span>
+                            唐诗
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="poetryType" value="宋词">
+                            <span class="radio-custom"></span>
+                            宋词
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="formSelect">具体体裁</label>
+                    <select id="formSelect">
+                        <optgroup label="唐诗">
+                            <option value="五言绝句">五言绝句</option>
+                            <option value="七言绝句">七言绝句</option>
+                            <option value="五言律诗">五言律诗</option>
+                            <option value="七言律诗">七言律诗</option>
+                        </optgroup>
+                        <optgroup label="宋词">
+                            <option value="江城子">江城子</option>
+                            <option value="水调歌头">水调歌头</option>
+                            <option value="蝶恋花">蝶恋花</option>
+                            <option value="清平乐">清平乐</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <button class="btn btn-primary btn-generate" id="generateBtn">🚀 生成诗词</button>
+            </div>
+
+            <!-- 结果展示区 -->
+            <div class="result-container" id="resultContainer">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📜</div>
+                    <div class="empty-state-text">输入主题，生成专属古典诗词~</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 右侧说明面板 -->
+        <aside class="info-sidebar">
+            <div class="info-header">
+                <h2>📜 使用说明</h2>
+            </div>
+            <div class="info-content">
+                <div class="info-section">
+                    <p><strong>AI诗词生成器是基于大模型的古典诗词创作工具，支持唐诗/宋词的智能生成，兼顾格律与意境。</strong></p>
+                </div>
+                <div class="info-section">
+                    <h3>🎯 使用步骤</h3>
+                    <ol class="guide-list">
+                        <li>输入创作主题（如“中秋赏月”“江南水乡”）</li>
+                        <li>选择诗词类型（唐诗/宋词）</li>
+                        <li>选择具体体裁（如七言绝句、江城子）</li>
+                        <li>点击生成按钮，等待AI创作完成</li>
+                    </ol>
+                </div>
+                <div class="info-section">
+                    <h3>✨ 功能特色</h3>
+                    <ul class="feature-list">
+                        <li><strong>格律合规：</strong>严格遵循唐诗/宋词的平仄、押韵规则</li>
+                        <li><strong>意境优美：</strong>语言典雅，贴合主题，兼具文学性</li>
+                        <li><strong>解析易懂：</strong>每首诗词附带创作思路解析</li>
+                        <li><strong>历史记录：</strong>自动保存创作记录，随时回顾</li>
+                    </ul>
+                </div>
+                <div class="info-section">
+                    <h3>📝 示例主题</h3>
+                    <ul class="example-list">
+                        <li>自然景观：春日、夏雨、秋风、冬雪、山水、星空</li>
+                        <li>情感表达：离别、思乡、喜悦、怀古、壮志</li>
+                        <li>节日节气：中秋、端午、春节、清明、重阳</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
